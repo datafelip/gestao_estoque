@@ -1,5 +1,5 @@
 import sqlite3
-codigo_sequencial = 1
+codigo_sequencial = 0
 conn = sqlite3.connect('estoque.db')
 cursor = conn.cursor()
 
