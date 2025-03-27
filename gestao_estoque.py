@@ -1,4 +1,5 @@
 import sqlite3
+from tabulate import tabulate
 codigo_sequencial = 1
 conn = sqlite3.connect('estoque.db')
 cursor = conn.cursor()
@@ -41,10 +42,10 @@ def adicionar_produto(nome, estoque):
 def listar_produtos():
   cursor.execute('SELECT * FROM produtos')
   produtos = cursor.fetchall()
-  print("código | nome | estoque")
-  for produto in produtos:
-    print(f"{produto[0]:<10} {produto[1]:<7} {produto[2]}")
-
+  if produtos:
+    print(tabulate(produtos, headers=["Código", "Nome", "Estoque"], tablefmt="grid"))
+  else:
+    print("Nenhum produto cadastrado.")
 def remover_produto(codigo):
   cursor.execute("DELETE FROM produtos WHERE ID_PRODUTO=?", (codigo))
   conn.commit()
